@@ -1,25 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { TracksManager, Track } from './TracksManager';
 
 const App: React.FC = () => {
+
+  const [tracks, setTracks] = React.useState<Track[]>([]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <TracksManager tracksList={tracks} uploadFileCallback={(files => {
+      for(let i=0; i < (files as FileList)?.length;i++){
+        setTracks([
+          ...tracks,
+          {name: (files as FileList)[i].name, rawContent: (files as FileList)[i].toString()}
+        ]);
+      }
+    })}/>
   );
 }
 
