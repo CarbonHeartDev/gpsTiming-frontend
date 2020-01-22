@@ -1,5 +1,5 @@
 import React from 'react';
-import { TracksManager, Track } from './TracksManager';
+import { TracksManager, Track, Point } from './TracksManager';
 import { parse } from 'fast-xml-parser';
 
 const App: React.FC = () => {
@@ -12,7 +12,22 @@ const App: React.FC = () => {
         
           const fileReader = new FileReader();
           fileReader.onload = (e) => {
-            console.dir(e.target?.result);
+            const parsedGPX = parse(e.target?.result as string, {ignoreAttributes : false});
+            console.dir(parsedGPX);
+
+            const path = parsedGPX.gpx.trk.trkseg.trkpt.map((e: any) => {
+              return {
+                position: {
+                  lat: e['@_lat'],
+                  lon: e['@_lon'],
+                  alt: e['ele']
+                },
+                time: new Date(e['time'])
+              }
+            });
+
+            setTracks(tracks => [...tracks, {name: (files.item(0)?.name as string),path}]);
+
           }
           
           const file: File = (files.item(0) as File);
