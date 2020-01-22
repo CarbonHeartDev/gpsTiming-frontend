@@ -1,5 +1,6 @@
 import React from 'react';
 import { TracksManager, Track } from './TracksManager';
+import { parse } from 'fast-xml-parser';
 
 const App: React.FC = () => {
 
@@ -7,13 +8,18 @@ const App: React.FC = () => {
 
   return (
     <TracksManager tracksList={tracks} uploadFileCallback={(files => {
-      for(let i=0; i < (files as FileList)?.length;i++){
-        setTracks([
-          ...tracks,
-          {name: (files as FileList)[i].name, rawContent: (files as FileList)[i].toString()}
-        ]);
-      }
-    })}/>
+        if (files?.item(0)?.type === 'application/gpx+xml') {
+        
+          const fileReader = new FileReader();
+          fileReader.onload = (e) => {
+            console.dir(e.target?.result);
+          }
+          
+          const file: File = (files.item(0) as File);
+
+          fileReader.readAsText(file);
+        }
+    })} />
   );
 }
 

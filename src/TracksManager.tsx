@@ -9,15 +9,15 @@ export const TracksManager = (prop: FileManagerProps) => {
     return (
         <>
             <div>
-                {prop.tracksList.map((track) => (
-                    <div>
+                {prop.tracksList.map((track, index) => (
+                    <div key={index}>
                         <b>{track.name}</b>
                         <span>{track.rawContent}</span>
                     </div>
                 ))}
             </div>
             <div>
-                <input type="file" id="fileInput" multiple onChange={e => prop.uploadFileCallback(e.target.files)}></input>
+                <input type="file" id="fileInput" onChange={e => prop.uploadFileCallback(e.target.files)}></input>
             </div>
         </>
     )
