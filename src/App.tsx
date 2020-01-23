@@ -13,15 +13,14 @@ const App: React.FC = () => {
           const fileReader = new FileReader();
           fileReader.onload = (e) => {
             const parsedGPX = parse(e.target?.result as string, {ignoreAttributes : false});
-            console.dir(parsedGPX);
 
             const path = parsedGPX.gpx.trk.trkseg.trkpt.map((e: any) => {
               return {
                 position: {
-                  lat: e['@_lat'],
-                  lon: e['@_lon'],
-                  alt: e['ele']
+                  latitude: e['@_lat'],
+                  longitude: e['@_lon']
                 },
+                altitude: e['ele'],
                 time: new Date(e['time'])
               }
             });

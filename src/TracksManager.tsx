@@ -1,4 +1,5 @@
 import React from 'react';
+import { calculateTotalDistance } from './PathUtils';
 
 interface FileManagerProps {
     tracksList: Track[];
@@ -14,9 +15,10 @@ export const TracksManager = (prop: FileManagerProps) => {
 
                         console.dir(e);
                         return (
-                            <div>
+                            <div style={{border: "solid 1px black"}}>
                                 <div><b>{e.name}</b></div>
-                                <span>punti: {e.path.length}</span>
+                                <div>punti: {e.path.length}</div>
+                                <div>distanza totale: {Math.round(calculateTotalDistance(e.path))} metri</div>
                             </div>
                         )
                     })
@@ -35,12 +37,12 @@ export interface Track {
 }
 
 export interface Coordinate {
-    lat: number;
-    lon: number;
-    alt?: number;
+    latitude: number;
+    longitude: number;
 }
 
 export interface Point {
     position: Coordinate;
+    altitude?: number;
     time: Date;
 }
