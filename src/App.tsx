@@ -9,6 +9,7 @@ const App: React.FC = () => {
 
   return (
     <>
+    <h1>Cronometroty</h1>
       <div style={{ width: "50%" }}>
         <TracksManager tracksList={tracks} uploadFileCallback={(files => {
           if (files?.item(0)?.type === 'application/gpx+xml') {
@@ -39,7 +40,10 @@ const App: React.FC = () => {
         })} />
       </div>
       <div style={{ width: "50%" }}>
-        <TracksMap></TracksMap>
+        <TracksMap tracksToRender={tracks}></TracksMap>
+      </div>
+      <div>
+        v0.1.0
       </div>
     </>
   );
