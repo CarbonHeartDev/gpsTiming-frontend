@@ -11,7 +11,8 @@ const App: React.FC = () => {
     <>
     <h1>Cronometroty</h1>
       <div style={{ width: "50%" }}>
-        <TracksManager tracksList={tracks} uploadFileCallback={(files => {
+        <TracksManager tracksList={tracks} 
+        uploadFileCallback={(files => {
           if (files?.item(0)?.type === 'application/gpx+xml') {
 
             const fileReader = new FileReader();
@@ -37,13 +38,15 @@ const App: React.FC = () => {
 
             fileReader.readAsText(file);
           }
-        })} />
+        })}
+        removeFileCallback={(id) => setTracks(tracks => [...tracks.slice(0, id),...tracks.slice(id+1)])}
+        />
       </div>
       <div style={{ width: "50%" }}>
         <TracksMap tracksToRender={tracks}></TracksMap>
       </div>
       <div>
-        v0.1.0
+        v0.2.0
       </div>
     </>
   );
