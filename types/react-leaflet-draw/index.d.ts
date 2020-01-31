@@ -1,3 +1,4 @@
+declare module "react-leaflet-draw" {
 import * as React from 'react';
 import { ControlPosition, DrawOptions } from 'leaflet';
 
@@ -32,3 +33,5 @@ interface EditControlProps {
 }
 
 export class EditControl extends React.Component<EditControlProps> {}
+
+}
