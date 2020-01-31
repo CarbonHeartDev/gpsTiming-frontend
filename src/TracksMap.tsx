@@ -1,9 +1,8 @@
 import React from 'react'
-import { render } from 'react-dom'
-import { Map, Marker, Popup, TileLayer, Polyline } from 'react-leaflet'
+import { Map, TileLayer, Polyline } from 'react-leaflet'
 import { Track } from './TracksManager'
 import { calculateBoundsFromPatches } from './PathUtils'
-import { LatLng, LatLngBounds } from 'leaflet'
+import { LatLngBounds } from 'leaflet'
 
 interface TracksMapProps {
     tracksToRender: Track[]

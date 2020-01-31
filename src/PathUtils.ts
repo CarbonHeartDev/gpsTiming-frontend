@@ -1,6 +1,5 @@
 import { Point } from "./TracksManager";
 import haversine, { CoordinateLatLng } from "haversine";
-import { point } from "leaflet";
 
 export const calculateTotalDistance = (path: Point[]): number => {
     return path.reduce<number>((accumulator, currentElement, index, inputArray) =>

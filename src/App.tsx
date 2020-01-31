@@ -1,5 +1,5 @@
 import React from 'react';
-import { TracksManager, Track, Point } from './TracksManager';
+import { TracksManager, Track } from './TracksManager';
 import { parse } from 'fast-xml-parser';
 import { TracksMap } from './TracksMap';
 
