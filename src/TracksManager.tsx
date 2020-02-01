@@ -1,9 +1,10 @@
 import React from 'react';
-import { calculateTotalDistance } from './PathUtils';
+import { calculateTotalDistance, Route } from './PathRoutePointUtils';
 import { RemoveButton } from './RemoveButton';
 
+
 interface FileManagerProps {
-    tracksList: Track[];
+    tracksList: Route[];
     uploadFileCallback: (data: (FileList | null)) => void;
     removeFileCallback: (id: number) => void;
 }
@@ -38,18 +39,3 @@ export const TracksManager = (prop: FileManagerProps) => {
     )
 }
 
-export interface Track {
-    name: string;
-    path: Point[];
-}
-
-export interface Coordinate {
-    latitude: number;
-    longitude: number;
-}
-
-export interface Point {
-    position: Coordinate;
-    altitude?: number;
-    time: Date;
-}

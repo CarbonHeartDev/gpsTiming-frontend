@@ -1,13 +1,10 @@
 import React from 'react'
 import { Map, TileLayer, Polyline, FeatureGroup, Marker } from 'react-leaflet'
-import { Track } from './TracksManager'
-import { calculateBoundsFromPatches } from './PathUtils'
+import { calculateBoundsFromRoutes, Checkpoint, Route, Coordinate } from './PathRoutePointUtils'
 import { LatLngBounds } from 'leaflet'
-import { Checkpoint } from './CheckpointManager'
-import { Coordinate } from './TracksManager'
 
 interface TracksMapProps {
-    tracksToRender: Track[];
+    tracksToRender: Route[];
     checkpointsToRender: Checkpoint[];
     onNewCheckpoint: (checkpoint: Checkpoint) => void;
 }
@@ -40,7 +37,7 @@ export const TracksMap = (props: TracksMapProps) => {
     if (props.tracksToRender.length === 0) {
         bounds = new LatLngBounds({ lat: -1, lng: -1 }, { lat: 1, lng: 1 });
     } else {
-        let calculatedBounds = calculateBoundsFromPatches(props.tracksToRender.map(e => e.path));
+        let calculatedBounds = calculateBoundsFromRoutes(props.tracksToRender.map(e => e.path));
         bounds = new LatLngBounds({ lat: calculatedBounds.sw.lat, lng: calculatedBounds.sw.lng }, { lat: calculatedBounds.ne.lat, lng: calculatedBounds.ne.lng });
     }
 

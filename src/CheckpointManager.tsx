@@ -1,6 +1,6 @@
 import React from 'react'
-import { Coordinate } from './TracksManager'
 import { RemoveButton } from './RemoveButton'
+import { Checkpoint } from './PathRoutePointUtils'
 
 export interface CheckpointManagerProps {
     checkpointList: Checkpoint[];
@@ -23,9 +23,4 @@ export const CheckpointManager = (prop: CheckpointManagerProps) => {
             }
         </>
     )
-}
-
-export interface Checkpoint {
-    p1: Coordinate;
-    p2: Coordinate;
 }

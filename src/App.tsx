@@ -1,12 +1,13 @@
 import React from 'react';
-import { TracksManager, Track } from './TracksManager';
+import { TracksManager } from './TracksManager';
 import { parse } from 'fast-xml-parser';
 import { TracksMap } from './TracksMap';
-import { Checkpoint, CheckpointManager } from './CheckpointManager';
+import { CheckpointManager } from './CheckpointManager';
+import { Checkpoint, Route } from './PathRoutePointUtils';
 
 const App: React.FC = () => {
 
-  const [tracks, setTracks] = React.useState<Track[]>([]);
+  const [tracks, setTracks] = React.useState<Route[]>([]);
   const [checkpoints, setCheckpoints] = React.useState<Checkpoint[]>([]);
 
   return (
@@ -49,7 +50,7 @@ const App: React.FC = () => {
         <TracksMap tracksToRender={tracks} checkpointsToRender={checkpoints} onNewCheckpoint={(checkpoint: Checkpoint) => setCheckpoints(checkpoints => [...checkpoints, checkpoint])}></TracksMap>
       </div>
       <div>
-        v0.4.0
+        v0.4.1
       </div>
     </>
   );
