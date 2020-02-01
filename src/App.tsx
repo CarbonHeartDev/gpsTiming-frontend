@@ -49,7 +49,7 @@ const App: React.FC = () => {
         <TracksMap tracksToRender={tracks} checkpointsToRender={checkpoints} onNewCheckpoint={(checkpoint: Checkpoint) => setCheckpoints(checkpoints => [...checkpoints, checkpoint])}></TracksMap>
       </div>
       <div>
-        v0.3.0
+        v0.4.0
       </div>
     </>
   );
