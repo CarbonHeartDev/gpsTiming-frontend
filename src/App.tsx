@@ -10,38 +10,40 @@ const App: React.FC = () => {
   const [tracks, setTracks] = React.useState<Route[]>([]);
   const [checkpoints, setCheckpoints] = React.useState<Segment[]>([]);
 
+  const uploadFileCallback = (files: (FileList|null)) => {
+    if (files?.item(0)?.type === 'application/gpx+xml') {
+
+      const fileReader = new FileReader();
+      fileReader.onload = (e) => {
+        const parsedGPX = parse(e.target?.result as string, { ignoreAttributes: false });
+
+        const path = parsedGPX.gpx.trk.trkseg.trkpt.map((e: any) => {
+          return {
+            position: {
+              latitude: Number(e['@_lat']),
+              longitude: Number(e['@_lon'])
+            },
+            altitude: Number(e['ele']),
+            time: new Date(e['time'])
+          }
+        });
+
+        setTracks(tracks => [...tracks, { name: (files.item(0)?.name as string), path }]);
+
+      }
+
+      const file: File = (files.item(0) as File);
+
+      fileReader.readAsText(file);
+    }
+  }
+
   return (
     <>
     <h1>Cronometroty</h1>
       <div style={{ width: "50%" }}>
         <TracksManager tracksList={tracks} 
-        uploadFileCallback={(files => {
-          if (files?.item(0)?.type === 'application/gpx+xml') {
-
-            const fileReader = new FileReader();
-            fileReader.onload = (e) => {
-              const parsedGPX = parse(e.target?.result as string, { ignoreAttributes: false });
-
-              const path = parsedGPX.gpx.trk.trkseg.trkpt.map((e: any) => {
-                return {
-                  position: {
-                    latitude: Number(e['@_lat']),
-                    longitude: Number(e['@_lon'])
-                  },
-                  altitude: Number(e['ele']),
-                  time: new Date(e['time'])
-                }
-              });
-
-              setTracks(tracks => [...tracks, { name: (files.item(0)?.name as string), path }]);
-
-            }
-
-            const file: File = (files.item(0) as File);
-
-            fileReader.readAsText(file);
-          }
-        })}
+        uploadFileCallback={uploadFileCallback}
         removeFileCallback={(id) => setTracks(tracks => [...tracks.slice(0, id),...tracks.slice(id+1)])}
         checkpoints={checkpoints}
         />
@@ -51,7 +53,7 @@ const App: React.FC = () => {
         <TracksMap tracksToRender={tracks} checkpointsToRender={checkpoints} onNewCheckpoint={(checkpoint: Segment) => setCheckpoints(checkpoints => [...checkpoints, checkpoint])}></TracksMap>
       </div>
       <div>
-        v0.5.0 (Uncle Frank)
+        v0.5.1 (Uncle Frank)
       </div>
     </>
   );
