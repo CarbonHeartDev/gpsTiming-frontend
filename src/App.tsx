@@ -3,12 +3,12 @@ import { TracksManager } from './TracksManager';
 import { parse } from 'fast-xml-parser';
 import { TracksMap } from './TracksMap';
 import { CheckpointManager } from './CheckpointManager';
-import { Checkpoint, Route } from './PathRoutePointUtils';
+import { Segment, Route } from './PathRoutePointUtils';
 
 const App: React.FC = () => {
 
   const [tracks, setTracks] = React.useState<Route[]>([]);
-  const [checkpoints, setCheckpoints] = React.useState<Checkpoint[]>([]);
+  const [checkpoints, setCheckpoints] = React.useState<Segment[]>([]);
 
   return (
     <>
@@ -25,10 +25,10 @@ const App: React.FC = () => {
               const path = parsedGPX.gpx.trk.trkseg.trkpt.map((e: any) => {
                 return {
                   position: {
-                    latitude: e['@_lat'],
-                    longitude: e['@_lon']
+                    latitude: Number(e['@_lat']),
+                    longitude: Number(e['@_lon'])
                   },
-                  altitude: e['ele'],
+                  altitude: Number(e['ele']),
                   time: new Date(e['time'])
                 }
               });
@@ -43,14 +43,15 @@ const App: React.FC = () => {
           }
         })}
         removeFileCallback={(id) => setTracks(tracks => [...tracks.slice(0, id),...tracks.slice(id+1)])}
+        checkpoints={checkpoints}
         />
         <CheckpointManager checkpointList={checkpoints} removeCheckpointCallback={(id) => setCheckpoints(checkpoints => [...checkpoints.slice(0, id),...checkpoints.slice(id+1)])} />
       </div>
       <div style={{ width: "50%" }}>
-        <TracksMap tracksToRender={tracks} checkpointsToRender={checkpoints} onNewCheckpoint={(checkpoint: Checkpoint) => setCheckpoints(checkpoints => [...checkpoints, checkpoint])}></TracksMap>
+        <TracksMap tracksToRender={tracks} checkpointsToRender={checkpoints} onNewCheckpoint={(checkpoint: Segment) => setCheckpoints(checkpoints => [...checkpoints, checkpoint])}></TracksMap>
       </div>
       <div>
-        v0.4.1
+        v0.5.0 (Uncle Frank)
       </div>
     </>
   );

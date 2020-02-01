@@ -1,5 +1,5 @@
 import React from 'react';
-import { calculateTotalDistance, Route } from './PathRoutePointUtils';
+import { calculateTotalDistance, Route, calculateIntermediateTimes, Segment } from './PathRoutePointUtils';
 import { RemoveButton } from './RemoveButton';
 
 
@@ -7,6 +7,7 @@ interface FileManagerProps {
     tracksList: Route[];
     uploadFileCallback: (data: (FileList | null)) => void;
     removeFileCallback: (id: number) => void;
+    checkpoints: Segment[];
 }
 
 export const TracksManager = (prop: FileManagerProps) => {
@@ -26,6 +27,15 @@ export const TracksManager = (prop: FileManagerProps) => {
                                 <div>distanza totale: {distanceMeters} metri</div>
                                 <div>Tempo: {durationMilliseconds} secondi</div>
                                 <div>Velocità media: {distanceMeters/(durationMilliseconds/1000)} m/s</div>
+                                <b>Passaggi ai checkpoint:</b>
+                                <ul>
+                                    {
+                                    calculateIntermediateTimes(e.path, prop.checkpoints)
+                                    .map(intermediateTime => (
+                                        <li>{intermediateTime.toString()}</li>
+                                    ))
+                                    }
+                                </ul>
                                 <RemoveButton RemoveButtonCallback={() => prop.removeFileCallback(index)} />
                             </div>
                         )

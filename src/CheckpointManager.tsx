@@ -1,15 +1,15 @@
 import React from 'react'
 import { RemoveButton } from './RemoveButton'
-import { Checkpoint } from './PathRoutePointUtils'
+import { Segment } from './PathRoutePointUtils'
 
 export interface CheckpointManagerProps {
-    checkpointList: Checkpoint[];
+    checkpointList: Segment[];
     removeCheckpointCallback: (id: number) => void;
 }
 
 export const CheckpointManager = (prop: CheckpointManagerProps) => {
     return (
-        <>
+        <div style={{border: "2px solid blue"}}>
             {
                 prop.checkpointList.map((checkpoint, index) =>
                     (
@@ -21,6 +21,6 @@ export const CheckpointManager = (prop: CheckpointManagerProps) => {
                     )
                 )
             }
-        </>
+        </div>
     )
 }

@@ -1,12 +1,12 @@
 import React from 'react'
 import { Map, TileLayer, Polyline, FeatureGroup, Marker } from 'react-leaflet'
-import { calculateBoundsFromRoutes, Checkpoint, Route, Coordinate } from './PathRoutePointUtils'
+import { calculateBoundsFromRoutes, Segment, Route, Coordinate } from './PathRoutePointUtils'
 import { LatLngBounds } from 'leaflet'
 
 interface TracksMapProps {
     tracksToRender: Route[];
-    checkpointsToRender: Checkpoint[];
-    onNewCheckpoint: (checkpoint: Checkpoint) => void;
+    checkpointsToRender: Segment[];
+    onNewCheckpoint: (checkpoint: Segment) => void;
 }
 
 interface MapState {
@@ -22,7 +22,6 @@ export const TracksMap = (props: TracksMapProps) => {
     let bounds: LatLngBounds;
 
     const mapClickCallback = (e: any): void => {
-        debugger;
         if (mapState.state === 'DRAWING') {
             if (!mapState.tempCoordinate) {
                 setMapState({state: 'DRAWING', tempCoordinate: { latitude: e.latlng.lat, longitude: e.latlng.lng }})
