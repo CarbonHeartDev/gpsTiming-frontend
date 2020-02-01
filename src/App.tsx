@@ -2,10 +2,12 @@ import React from 'react';
 import { TracksManager, Track } from './TracksManager';
 import { parse } from 'fast-xml-parser';
 import { TracksMap } from './TracksMap';
+import { Checkpoint, CheckpointManager } from './CheckpointManager';
 
 const App: React.FC = () => {
 
   const [tracks, setTracks] = React.useState<Track[]>([]);
+  const [checkpoints, setCheckpoints] = React.useState<Checkpoint[]>([]);
 
   return (
     <>
@@ -41,12 +43,13 @@ const App: React.FC = () => {
         })}
         removeFileCallback={(id) => setTracks(tracks => [...tracks.slice(0, id),...tracks.slice(id+1)])}
         />
+        <CheckpointManager checkpointList={checkpoints} removeCheckpointCallback={(id) => setCheckpoints(checkpoints => [...checkpoints.slice(0, id),...checkpoints.slice(id+1)])} />
       </div>
       <div style={{ width: "50%" }}>
-        <TracksMap tracksToRender={tracks}></TracksMap>
+        <TracksMap tracksToRender={tracks} checkpointsToRender={checkpoints} onNewCheckpoint={(checkpoint: Checkpoint) => setCheckpoints(checkpoints => [...checkpoints, checkpoint])}></TracksMap>
       </div>
       <div>
-        v0.2.0
+        v0.3.0
       </div>
     </>
   );

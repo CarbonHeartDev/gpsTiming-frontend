@@ -4,10 +4,14 @@ import { Track } from './TracksManager'
 import { calculateBoundsFromPatches } from './PathUtils'
 import { LatLngBounds } from 'leaflet'
 import { EditControl } from 'react-leaflet-draw'
+import { Checkpoint } from './CheckpointManager'
 
 interface TracksMapProps {
-    tracksToRender: Track[]
+    tracksToRender: Track[];
+    checkpointsToRender: Checkpoint[];
+    onNewCheckpoint: (checkpoint: Checkpoint) => void;
 }
+
 
 export const TracksMap = (props: TracksMapProps) => {
 
@@ -29,12 +33,36 @@ export const TracksMap = (props: TracksMapProps) => {
             {
                 props.tracksToRender.map(t => <Polyline color="lime" positions={t.path.map(e => { return { lat: e.position.latitude, lng: e.position.longitude } })} />)
             }
+            {
+                props.checkpointsToRender.map(cp => <Polyline color="blue" positions={[{lat: cp.p1.latitude, lng: cp.p1.longitude},{lat: cp.p2.latitude, lng: cp.p2.longitude}]} />)
+            }
             <FeatureGroup>
                 <EditControl
                     position='topright'
                     draw={{
                         rectangle: false
                     }}
+                    onDrawVertex={
+                        (e: any) => {
+                            const layerIds = Object.keys(e.layers._layers);
+                            if (layerIds.length > 1) {
+                                debugger;
+                                const secondVertex = e.layers._layers[layerIds[1]]._icon;
+                                requestAnimationFrame(() => secondVertex.click());
+                                const layers = e.layers.getLayers();
+                                const p1 = layers[0].getLatLng();
+                                const p2 = layers[1].getLatLng();
+
+                                props.onNewCheckpoint({p1: {latitude: p1.lat, longitude: p1.lng}, p2: {latitude: p2.lat, longitude: p2.lng}});
+                            }
+                        }
+                    }
+
+                    onDrawStop={
+                        (e: string) => {
+                            debugger;
+                        }
+                    }
                 />
             </FeatureGroup>
         </Map>

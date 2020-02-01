@@ -1,5 +1,6 @@
 import React from 'react';
 import { calculateTotalDistance } from './PathUtils';
+import { RemoveButton } from './RemoveButton';
 
 interface FileManagerProps {
     tracksList: Track[];
@@ -24,7 +25,7 @@ export const TracksManager = (prop: FileManagerProps) => {
                                 <div>distanza totale: {distanceMeters} metri</div>
                                 <div>Tempo: {durationMilliseconds} secondi</div>
                                 <div>Velocità media: {distanceMeters/(durationMilliseconds/1000)} m/s</div>
-                                <span style={{cursor:"pointer",color:"blue"}} onClick={() => prop.removeFileCallback(index)}>Rimuovi elemento</span>
+                                <RemoveButton RemoveButtonCallback={() => prop.removeFileCallback(index)} />
                             </div>
                         )
                     })
