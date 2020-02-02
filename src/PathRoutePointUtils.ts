@@ -77,7 +77,7 @@ export function calculateSegmentIntersection(segmentA: Segment, segmentB: Segmen
         [segmentB.p1.latitude, segmentB.p1.longitude], [segmentB.p2.latitude, segmentB.p2.longitude]
     ) as number[];
 
-    const result: (Coordinate | undefined) = checkExistenceConditions(rawIntersection) ? { latitude: rawIntersection[0], longitude: rawIntersection[1] } : undefined;
+    const result: (Coordinate | undefined) = rawIntersection !== null ? (checkExistenceConditions(rawIntersection) ? { latitude: rawIntersection[0], longitude: rawIntersection[1] } : undefined) : undefined;
 
     return result;
 }
