@@ -1,6 +1,6 @@
 import React from 'react';
-import { calculateTotalDistance, Route, calculateIntermediateTimes, Segment } from './PathRoutePointUtils';
-import { RemoveButton } from './RemoveButton';
+import { Route, Segment } from './PathRoutePointUtils';
+import { TimingDetection } from './TimingDetection';
 
 
 interface FileManagerProps {
@@ -12,40 +12,21 @@ interface FileManagerProps {
 
 export const TracksManager = (prop: FileManagerProps) => {
     return (
-        <>
-            <div>
-                {
-                    prop.tracksList.map((e, index) => {
-
-                        const distanceMeters = Math.round(calculateTotalDistance(e.path));
-                        const durationMilliseconds = e.path[e.path.length - 1].time.valueOf() - e.path[0].time.valueOf();
-
-                        return (
-                            <div style={{ border: "solid 1px black" }}>
-                                <div><b>{e.name}</b></div>
-                                <div>punti: {e.path.length}</div>
-                                <div>distanza totale: {distanceMeters} metri</div>
-                                <div>Tempo: {durationMilliseconds} secondi</div>
-                                <div>Velocità media: {distanceMeters/(durationMilliseconds/1000)} m/s</div>
-                                <b>Passaggi ai checkpoint:</b>
-                                <ul>
-                                    {
-                                    calculateIntermediateTimes(e.path, prop.checkpoints)
-                                    .map(intermediateTime => (
-                                        <li>{intermediateTime.toString()}</li>
-                                    ))
-                                    }
-                                </ul>
-                                <RemoveButton RemoveButtonCallback={() => prop.removeFileCallback(index)} />
-                            </div>
-                        )
-                    })
-                }
+        <div className="setting">
+            <div className="setting-header">
+                <span>RILEVAZIONI CRONOMETRICHE</span>
             </div>
-            <div>
-                <input type="file" id="fileInput" onChange={e => prop.uploadFileCallback(e.target.files)}></input>
+            <div className="setting-body">
+                <div>
+                    {
+                        prop.tracksList.map((e, index) => <TimingDetection key={index} route={e} checkpoints={prop.checkpoints} removalCallback={() => prop.removeFileCallback(index)} />)
+                    }
+                </div>
+                <div>
+                    <input type="file" id="fileInput" onChange={e => prop.uploadFileCallback(e.target.files)}></input>
+                </div>
             </div>
-        </>
+        </div>
     )
 }
 

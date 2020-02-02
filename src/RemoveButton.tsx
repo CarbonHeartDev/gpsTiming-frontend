@@ -2,6 +2,6 @@ import React from 'react'
 
 export const RemoveButton = (props: {RemoveButtonCallback: () => void}) => {
     return (
-        <span style={{cursor:"pointer",color:"blue"}} onClick={props.RemoveButtonCallback}>Rimuovi elemento</span>
+        <span className="removal-button" onClick={props.RemoveButtonCallback}>X</span>
     )
 }

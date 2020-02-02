@@ -1,0 +1,13 @@
+:root {
+    --main-background-color: #e5e4e2;
+    --main-text-color: #e2f1af;
+    --highlight-color: #23c9ff;
+    --infobox-color: #62929e;
+    --infobox-heading-color: #546a7b;
+
+    --timing-start-color: green;
+    --timing-sector-color: yellow;
+    --timing-stop-color: red;
+    
+    --critical-data-color: orange;
+}

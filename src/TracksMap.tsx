@@ -42,7 +42,7 @@ export const TracksMap = (props: TracksMapProps) => {
 
     return (
         <>
-            <Map bounds={bounds} style={{ height: "500px", cursor: mapState.state === 'DRAWING' ? "crosshair" : "auto" }} onClick={mapClickCallback}>
+            <Map bounds={bounds} style={{ height: "100%", cursor: mapState.state === 'DRAWING' ? "crosshair" : "auto" }} onClick={mapClickCallback}>
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"

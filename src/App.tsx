@@ -41,7 +41,9 @@ const App: React.FC = () => {
   return (
     <>
     <h1>Cronometroty</h1>
-      <div style={{ width: "50%" }}>
+    <div className="app-main-view">
+      <div className="app-sidebar">
+      <div>
         <TracksManager tracksList={tracks} 
         uploadFileCallback={uploadFileCallback}
         removeFileCallback={(id) => setTracks(tracks => [...tracks.slice(0, id),...tracks.slice(id+1)])}
@@ -49,11 +51,13 @@ const App: React.FC = () => {
         />
         <CheckpointManager checkpointList={checkpoints} removeCheckpointCallback={(id) => setCheckpoints(checkpoints => [...checkpoints.slice(0, id),...checkpoints.slice(id+1)])} />
       </div>
-      <div style={{ width: "50%" }}>
+      </div>
+      <div className="app-map-area">
         <TracksMap tracksToRender={tracks} checkpointsToRender={checkpoints} onNewCheckpoint={(checkpoint: Segment) => setCheckpoints(checkpoints => [...checkpoints, checkpoint])}></TracksMap>
       </div>
+      </div>
       <div>
-        v0.5.1 (Uncle Frank)
+        v0.6.0 (Uncle Frankie)
       </div>
     </>
   );

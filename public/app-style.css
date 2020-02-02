@@ -1,0 +1,79 @@
+.app-main-view {
+    display: flex;   
+    height: 100vh;
+}
+
+.app-sidebar {
+    flex: 1 1 25%;
+    background-color: var(--main-background-color);
+}
+
+.setting {
+    width: 100%;
+}
+
+.setting .setting-header {
+    background-color: var(--highlight-color);
+}
+
+.setting-header span{
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.app-map-area {
+    flex: 3 3 75%;
+}
+
+.timing-detection {
+    color: #e2f1af;
+}
+
+.timing-detection .header{
+    background-color: var(--infobox-heading-color);
+    padding: 10px;
+}
+
+.timing-detection .sectors{
+    background-color: var(--infobox-color);
+    padding: 10px;
+}
+
+.timing-detection .header .detection-name{
+    font-size: 25px;
+    display: block;
+}
+
+.timing-detection .header .total-time{
+    font-size: 20px;
+    font-weight: bold;
+    display: block;
+}
+
+.timing-detection .header .total-time.invalid{
+    color: var(--critical-data-color);
+}
+
+.timing-detection .sectors .sector.first{
+    color: var(--timing-start-color)
+}
+
+.timing-detection .sectors .sector.intermediate{
+    color: var(--timing-sector-color)
+}
+
+.timing-detection .sectors .sector.last{
+    color: var(--timing-stop-color)
+}
+
+.timing-detection .sectors ul{
+    list-style: square;
+    list-style-position: inside;
+    margin: 0;
+}
+
+.removal-button {
+    color: blue;
+    cursor: pointer;
+    font-size: 15px;
+}
