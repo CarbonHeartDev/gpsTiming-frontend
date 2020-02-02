@@ -48,10 +48,10 @@ export const TracksMap = (props: TracksMapProps) => {
                     attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
                 />
                 {
-                    props.tracksToRender.map(t => <Polyline color="lime" positions={t.path.map(e => { return { lat: e.position.latitude, lng: e.position.longitude } })} />)
+                    props.tracksToRender.map((t, index, tracks) => <Polyline key={index} color="lime" positions={t.path.map(e => { return { lat: e.position.latitude, lng: e.position.longitude } })} />)
                 }
                 {
-                    props.checkpointsToRender.map(cp => <Polyline color="blue" positions={[{ lat: cp.p1.latitude, lng: cp.p1.longitude }, { lat: cp.p2.latitude, lng: cp.p2.longitude }]} />)
+                    props.checkpointsToRender.map((cp, index, checkpoints) => <Polyline key={index} color={(index === 0 ? 'green' : (index === checkpoints.length - 1 ? 'red' : 'yellow'))} positions={[{ lat: cp.p1.latitude, lng: cp.p1.longitude }, { lat: cp.p2.latitude, lng: cp.p2.longitude }]} />)
                 }
                 {
                     (mapState.tempCoordinate) ?
