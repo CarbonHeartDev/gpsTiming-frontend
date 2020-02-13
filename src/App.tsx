@@ -57,7 +57,7 @@ const App: React.FC = () => {
       </div>
       </div>
       <div>
-        v0.6.0 (Uncle Frankie)
+        v0.6.1 (Uncle Frankie)
       </div>
     </>
   );
