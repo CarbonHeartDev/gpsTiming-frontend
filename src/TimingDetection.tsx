@@ -22,7 +22,6 @@ function formatTime(totalMillis: number, showInOutput: 'AUTO' | 'HOURS' | 'MINUT
     let result: string;
 
     if (showInOutput === 'AUTO') {
-        debugger;
         if (hours > 0) {
             result = `${pad(hours)}:${pad(minutes)}'${pad(seconds)}"${millis}`
         } else if (minutes > 0) {
