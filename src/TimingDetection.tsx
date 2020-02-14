@@ -49,7 +49,7 @@ export const TimingDetection = (prop: ITimingDetectionProps) => {
         <CollapsableData
             name={prop.route.name}
             dataShort={(intermediateTimes.length > 1) ?
-                ((intermediateTimes.length === prop.checkpoints.length) ? `Total time: ${(intermediateTimes[intermediateTimes.length - 1].getTime() - intermediateTimes[0].getTime()) / 1000}` : 'DNF') :
+                ((intermediateTimes.length === prop.checkpoints.length) ? `Total time: ${formatTime((intermediateTimes[intermediateTimes.length - 1].getTime() - intermediateTimes[0].getTime()))}` : 'DNF') :
                 null}
             dataError={intermediateTimes.length !== prop.checkpoints.length}
             removalCallback={prop.removalCallback}
