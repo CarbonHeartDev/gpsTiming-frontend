@@ -5,6 +5,7 @@ import { Segment } from './PathRoutePointUtils'
 export interface CheckpointManagerProps {
     checkpointList: Segment[];
     removeCheckpointCallback: (id: number) => void;
+    triggerDrawing: () => void;
 }
 
 export const CheckpointManager = (prop: CheckpointManagerProps) => {
@@ -21,6 +22,7 @@ export const CheckpointManager = (prop: CheckpointManagerProps) => {
                     )
                 )
             }
+            <button onClick={prop.triggerDrawing}>Add track waypoint</button>
         </>
     )
 }

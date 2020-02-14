@@ -3,13 +3,19 @@ import { TracksManager } from './TracksManager';
 import { parse } from 'fast-xml-parser';
 import { TracksMap } from './TracksMap';
 import { CheckpointManager } from './CheckpointManager';
-import { Segment, Route } from './PathRoutePointUtils';
+import { Segment, Route, Coordinate } from './PathRoutePointUtils';
 import { SidebarSection } from './SidebarSection';
+
+export interface MapState {
+  state: 'IDLE' | 'DRAWING';
+  tempCoordinate?: Coordinate;
+}
 
 const App: React.FC = () => {
 
   const [tracks, setTracks] = React.useState<Route[]>([]);
   const [checkpoints, setCheckpoints] = React.useState<Segment[]>([]);
+  const [mapState, setMapState] = React.useState<MapState>({ state: 'IDLE' })
 
   const uploadFileCallback = (files: (FileList | null)) => {
     if (files?.item(0)?.type === 'application/gpx+xml') {
@@ -41,7 +47,10 @@ const App: React.FC = () => {
 
   return (
     <>
+    <div className="app-topbar">
       <h1>Cronometroty</h1>
+      <span>Version 0.7.0</span>
+      </div>
       <div className="app-main-view">
         <div className="app-sidebar">
           <div>
@@ -53,16 +62,13 @@ const App: React.FC = () => {
               />
             </SidebarSection>
             <SidebarSection title="CHECKPOINTS MANAGEMENT">
-              <CheckpointManager checkpointList={checkpoints} removeCheckpointCallback={(id) => setCheckpoints(checkpoints => [...checkpoints.slice(0, id), ...checkpoints.slice(id + 1)])} />
+              <CheckpointManager triggerDrawing={() => setMapState({ state: 'DRAWING' })} checkpointList={checkpoints} removeCheckpointCallback={(id) => setCheckpoints(checkpoints => [...checkpoints.slice(0, id), ...checkpoints.slice(id + 1)])} />
             </SidebarSection>
           </div>
         </div>
         <div className="app-map-area">
-          <TracksMap tracksToRender={tracks} checkpointsToRender={checkpoints} onNewCheckpoint={(checkpoint: Segment) => setCheckpoints(checkpoints => [...checkpoints, checkpoint])}></TracksMap>
+          <TracksMap mapState={mapState} setMapState={setMapState} tracksToRender={tracks} checkpointsToRender={checkpoints} onNewCheckpoint={(checkpoint: Segment) => setCheckpoints(checkpoints => [...checkpoints, checkpoint])}></TracksMap>
         </div>
-      </div>
-      <div>
-        v0.6.2 (Uncle Frankie)
       </div>
     </>
   );

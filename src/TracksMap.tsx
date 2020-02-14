@@ -1,34 +1,30 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { Map, TileLayer, Polyline, FeatureGroup, Marker } from 'react-leaflet'
 import { calculateBoundsFromRoutes, Segment, Route, Coordinate } from './PathRoutePointUtils'
 import { LatLngBounds } from 'leaflet'
+import { MapState } from './App'
 
 interface TracksMapProps {
     tracksToRender: Route[];
     checkpointsToRender: Segment[];
     onNewCheckpoint: (checkpoint: Segment) => void;
+    mapState: MapState;
+    setMapState: Dispatch<SetStateAction<MapState>>;
 }
-
-interface MapState {
-    state: 'IDLE' | 'DRAWING';
-    tempCoordinate?: Coordinate;
-}
-
 
 export const TracksMap = (props: TracksMapProps) => {
 
-    const [mapState, setMapState] = React.useState<MapState>({ state: 'IDLE' })
 
     let bounds: LatLngBounds;
 
     const mapClickCallback = (e: any): void => {
-        if (mapState.state === 'DRAWING') {
-            if (!mapState.tempCoordinate) {
-                setMapState({state: 'DRAWING', tempCoordinate: { latitude: e.latlng.lat, longitude: e.latlng.lng }})
-            } else if (mapState.tempCoordinate) {
-                props.onNewCheckpoint({ p1: mapState.tempCoordinate as Coordinate, p2: { latitude: e.latlng.lat, longitude: e.latlng.lng } });
+        if (props.mapState.state === 'DRAWING') {
+            if (!props.mapState.tempCoordinate) {
+                props.setMapState({state: 'DRAWING', tempCoordinate: { latitude: e.latlng.lat, longitude: e.latlng.lng }})
+            } else if (props.mapState.tempCoordinate) {
+                props.onNewCheckpoint({ p1: props.mapState.tempCoordinate as Coordinate, p2: { latitude: e.latlng.lat, longitude: e.latlng.lng } });
 
-                setMapState({state: 'IDLE'})
+                props.setMapState({state: 'IDLE'})
             }
         }
     }
@@ -42,7 +38,7 @@ export const TracksMap = (props: TracksMapProps) => {
 
     return (
         <>
-            <Map bounds={bounds} style={{ height: "100%", cursor: mapState.state === 'DRAWING' ? "crosshair" : "auto" }} onClick={mapClickCallback}>
+            <Map bounds={bounds} style={{ height: "100%", cursor: props.mapState.state === 'DRAWING' ? "crosshair" : "auto" }} onClick={mapClickCallback}>
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
@@ -54,8 +50,8 @@ export const TracksMap = (props: TracksMapProps) => {
                     props.checkpointsToRender.map((cp, index, checkpoints) => <Polyline key={index} color={(index === 0 ? 'green' : (index === checkpoints.length - 1 ? 'red' : 'yellow'))} positions={[{ lat: cp.p1.latitude, lng: cp.p1.longitude }, { lat: cp.p2.latitude, lng: cp.p2.longitude }]} />)
                 }
                 {
-                    (mapState.tempCoordinate) ?
-                        <Marker position={{ lat: mapState.tempCoordinate.latitude, lng: mapState.tempCoordinate.longitude }} />
+                    (props.mapState.tempCoordinate) ?
+                        <Marker position={{ lat: props.mapState.tempCoordinate.latitude, lng: props.mapState.tempCoordinate.longitude }} />
                         :
                         null
                 }
@@ -63,7 +59,6 @@ export const TracksMap = (props: TracksMapProps) => {
 
                 </FeatureGroup>
             </Map>
-            <button onClick={() => setMapState({ state: 'DRAWING' })}>Add track waypoint</button>
         </>
     )
 }
