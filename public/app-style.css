@@ -1,96 +1,99 @@
 h1 {
-    font-size: 30px;
-    margin: 0px;
+  font-size: 30px;
+  margin: 0px;
 }
 
 .app-topbar {
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: var(--topbar-color);
-    color: white;
-    padding-left: 10px;
-    padding-right: 10px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--topbar-color);
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .app-main-view {
-    display: flex;   
-    height: calc( 100vh - 60px );
+  display: flex;
+  height: calc(100vh - 60px);
 }
 
 .app-sidebar {
-    flex: 1 1 25%;
-    background-color: var(--main-background-color);
+  flex: 1 1 25%;
+  background-color: var(--main-background-color);
 }
 
 .setting {
-    width: 100%;
+  width: 100%;
 }
 
 .setting .setting-header {
-    background-color: var(--highlight-color);
-    cursor: pointer;
+  background-color: var(--highlight-color);
+  cursor: pointer;
 }
 
-.setting-header span{
-    font-size: 20px;
-    text-transform: uppercase;
+.setting-header span {
+  font-size: 20px;
+  text-transform: uppercase;
 }
 
 .app-map-area {
-    flex: 3 3 75%;
+  flex: 3 3 75%;
 }
 
 .collapsable-data {
-    color: #e2f1af;
+  color: #e2f1af;
 }
 
-.collapsable-data .header{
-    background-color: var(--infobox-heading-color);
-    padding: 10px;
+.collapsable-data .header {
+  background-color: var(--infobox-heading-color);
+  padding: 10px;
 }
 
-.collapsable-data .sectors{
-    background-color: var(--infobox-color);
-    padding: 10px;
+.collapsable-data .body {
+  background-color: var(--infobox-color);
 }
 
-.collapsable-data .header .detection-name{
-    font-size: 25px;
-    display: block;
+.collapsable-data .sectors {
+  padding: 10px;
 }
 
-.collapsable-data .header .data-short{
-    font-size: 20px;
-    font-weight: bold;
-    display: block;
+.collapsable-data .header .detection-name {
+  font-size: 25px;
+  display: block;
 }
 
-.collapsable-data .header .data-short.invalid{
-    color: var(--critical-data-color);
+.collapsable-data .header .data-short {
+  font-size: 20px;
+  font-weight: bold;
+  display: block;
 }
 
-.collapsable-data .sectors .sector.first{
-    color: var(--timing-start-color)
+.collapsable-data .header .data-short.invalid {
+  color: var(--critical-data-color);
 }
 
-.collapsable-data .sectors .sector.intermediate{
-    color: var(--timing-sector-color)
+.collapsable-data .sectors .sector.first {
+  color: var(--timing-start-color);
 }
 
-.collapsable-data .sectors .sector.last{
-    color: var(--timing-stop-color)
+.collapsable-data .sectors .sector.intermediate {
+  color: var(--timing-sector-color);
 }
 
-.collapsable-data .sectors ul{
-    list-style: square;
-    list-style-position: inside;
-    margin: 0;
+.collapsable-data .sectors .sector.last {
+  color: var(--timing-stop-color);
+}
+
+.collapsable-data .sectors ul {
+  list-style: square;
+  list-style-position: inside;
+  margin: 0;
 }
 
 .removal-button {
-    color: blue;
-    cursor: pointer;
-    font-size: 15px;
+  color: blue;
+  cursor: pointer;
+  font-size: 15px;
 }

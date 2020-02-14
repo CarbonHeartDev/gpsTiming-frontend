@@ -52,7 +52,7 @@ export const TimingDetection = (prop: ITimingDetectionProps) => {
             dataShort={(intermediateTimes.length > 1) ?
                 ((intermediateTimes.length === prop.checkpoints.length) ? `Total time: ${(intermediateTimes[intermediateTimes.length - 1].getTime() - intermediateTimes[0].getTime()) / 1000}` : 'DNF') :
                 null}
-            dataError={intermediateTimes.length === prop.checkpoints.length}
+            dataError={intermediateTimes.length !== prop.checkpoints.length}
             removalCallback={prop.removalCallback}
         >
             {

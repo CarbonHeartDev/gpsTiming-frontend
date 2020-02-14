@@ -49,7 +49,7 @@ const App: React.FC = () => {
     <>
     <div className="app-topbar">
       <h1>Cronometroty</h1>
-      <span>Version 0.7.0</span>
+      <span>Version 0.7.1</span>
       </div>
       <div className="app-main-view">
         <div className="app-sidebar">
