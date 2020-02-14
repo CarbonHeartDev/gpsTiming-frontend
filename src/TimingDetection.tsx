@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { calculateIntermediateTimes, Route, Segment } from './PathRoutePointUtils';
 import { RemoveButton } from './RemoveButton';
 
@@ -43,11 +43,15 @@ function formatTime(totalMillis: number, showInOutput: 'AUTO' | 'HOURS' | 'MINUT
 }
 
 export const TimingDetection = (prop: ITimingDetectionProps) => {
+
+    const [open, setOpen] = useState<Boolean>(false);
+
     const intermediateTimes = calculateIntermediateTimes(prop.route.path, prop.checkpoints);
 
     return (
-        <div className="timing-detection">
+        <div className="timing-detection" onClick={() => setOpen(value => !value)} style={{cursor: prop.checkpoints.length > 0 ? 'pointer' : 'auto'}}>
             <div className="header">
+            <RemoveButton RemoveButtonCallback={prop.removalCallback} />
                 <span className="detection-name">{prop.route.name}</span>
                 {
                     (intermediateTimes.length > 1) ?
@@ -55,19 +59,22 @@ export const TimingDetection = (prop: ITimingDetectionProps) => {
                         null
                 }
             </div>
-            <div className="sectors">
-                <ul>
-                    {
-                        intermediateTimes
-                            .map((intermediateTime, index, intermediateTimes) => (
-                                index === 0 ?
-                                    <li className="sector first">Start time: {intermediateTime.toLocaleTimeString(undefined)}</li> :
-                                    <li className={index < intermediateTimes.length - 1 ? "sector intermediate" : "sector last"}>Sector {index}: {formatTime((intermediateTime.getTime() - intermediateTimes[0].getTime()))} (split: {formatTime((intermediateTime.getTime() - intermediateTimes[index - 1].getTime()))})</li>
-                            ))
-                    }
-                </ul>
-            </div>
-            <RemoveButton RemoveButtonCallback={prop.removalCallback} />
+            {
+                (open && prop.checkpoints.length > 0) ? (
+                <div className="sectors">
+                    <ul>
+                        {
+                            intermediateTimes
+                                .map((intermediateTime, index, intermediateTimes) => (
+                                    index === 0 ?
+                                        <li className="sector first">Start time: {intermediateTime.toLocaleTimeString(undefined)}</li> :
+                                        <li className={index < intermediateTimes.length - 1 ? "sector intermediate" : "sector last"}>Sector {index}: {formatTime((intermediateTime.getTime() - intermediateTimes[0].getTime()))} (split: {formatTime((intermediateTime.getTime() - intermediateTimes[index - 1].getTime()))})</li>
+                                ))
+                        }
+                    </ul>
+                </div>
+                ) : null
+            }
         </div>
     )
 }

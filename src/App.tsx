@@ -4,6 +4,7 @@ import { parse } from 'fast-xml-parser';
 import { TracksMap } from './TracksMap';
 import { CheckpointManager } from './CheckpointManager';
 import { Segment, Route } from './PathRoutePointUtils';
+import { SidebarSection } from './SidebarSection';
 
 const App: React.FC = () => {
 
@@ -49,7 +50,9 @@ const App: React.FC = () => {
         removeFileCallback={(id) => setTracks(tracks => [...tracks.slice(0, id),...tracks.slice(id+1)])}
         checkpoints={checkpoints}
         />
+        <SidebarSection title="TRACK CHECKPOINTS">
         <CheckpointManager checkpointList={checkpoints} removeCheckpointCallback={(id) => setCheckpoints(checkpoints => [...checkpoints.slice(0, id),...checkpoints.slice(id+1)])} />
+        </SidebarSection>
       </div>
       </div>
       <div className="app-map-area">
@@ -57,7 +60,7 @@ const App: React.FC = () => {
       </div>
       </div>
       <div>
-        v0.6.1 (Uncle Frankie)
+        v0.6.2 (Uncle Frankie)
       </div>
     </>
   );
