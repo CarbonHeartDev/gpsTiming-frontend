@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { calculateIntermediateTimes, Route, Segment } from './PathRoutePointUtils';
-import { RemoveButton } from './RemoveButton';
+import { CollapsableData } from './CollapsableData';
 
 export interface ITimingDetectionProps {
     route: Route;
@@ -44,37 +44,33 @@ function formatTime(totalMillis: number, showInOutput: 'AUTO' | 'HOURS' | 'MINUT
 
 export const TimingDetection = (prop: ITimingDetectionProps) => {
 
-    const [open, setOpen] = useState<Boolean>(false);
-
     const intermediateTimes = calculateIntermediateTimes(prop.route.path, prop.checkpoints);
 
     return (
-        <div className="timing-detection" onClick={() => setOpen(value => !value)} style={{cursor: prop.checkpoints.length > 0 ? 'pointer' : 'auto'}}>
-            <div className="header">
-            <RemoveButton RemoveButtonCallback={prop.removalCallback} />
-                <span className="detection-name">{prop.route.name}</span>
-                {
-                    (intermediateTimes.length > 1) ?
-                        ((intermediateTimes.length === prop.checkpoints.length) ? <span className="total-time">Total time: {(intermediateTimes[intermediateTimes.length - 1].getTime() - intermediateTimes[0].getTime()) / 1000}</span> : <span className="total-time invalid">DNF</span>) :
-                        null
-                }
-            </div>
+        <CollapsableData
+            name={prop.route.name}
+            dataShort={(intermediateTimes.length > 1) ?
+                ((intermediateTimes.length === prop.checkpoints.length) ? `Total time: ${(intermediateTimes[intermediateTimes.length - 1].getTime() - intermediateTimes[0].getTime()) / 1000}` : 'DNF') :
+                null}
+            dataError={intermediateTimes.length === prop.checkpoints.length}
+            removalCallback={prop.removalCallback}
+        >
             {
-                (open && prop.checkpoints.length > 0) ? (
-                <div className="sectors">
-                    <ul>
-                        {
-                            intermediateTimes
-                                .map((intermediateTime, index, intermediateTimes) => (
-                                    index === 0 ?
-                                        <li className="sector first">Start time: {intermediateTime.toLocaleTimeString(undefined)}</li> :
-                                        <li className={index < intermediateTimes.length - 1 ? "sector intermediate" : "sector last"}>Sector {index}: {formatTime((intermediateTime.getTime() - intermediateTimes[0].getTime()))} (split: {formatTime((intermediateTime.getTime() - intermediateTimes[index - 1].getTime()))})</li>
-                                ))
-                        }
-                    </ul>
-                </div>
+                (prop.checkpoints.length > 0) ? (
+                    <div className="sectors">
+                        <ul>
+                            {
+                                intermediateTimes
+                                    .map((intermediateTime, index, intermediateTimes) => (
+                                        index === 0 ?
+                                            <li className="sector first">Start time: {intermediateTime.toLocaleTimeString(undefined)}</li> :
+                                            <li className={index < intermediateTimes.length - 1 ? "sector intermediate" : "sector last"}>Sector {index}: {formatTime((intermediateTime.getTime() - intermediateTimes[0].getTime()))} (split: {formatTime((intermediateTime.getTime() - intermediateTimes[index - 1].getTime()))})</li>
+                                    ))
+                            }
+                        </ul>
+                    </div>
                 ) : null
             }
-        </div>
+        </CollapsableData>
     )
 }

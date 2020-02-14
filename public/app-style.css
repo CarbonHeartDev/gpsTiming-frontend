@@ -26,48 +26,48 @@
     flex: 3 3 75%;
 }
 
-.timing-detection {
+.collapsable-data {
     color: #e2f1af;
 }
 
-.timing-detection .header{
+.collapsable-data .header{
     background-color: var(--infobox-heading-color);
     padding: 10px;
 }
 
-.timing-detection .sectors{
+.collapsable-data .sectors{
     background-color: var(--infobox-color);
     padding: 10px;
 }
 
-.timing-detection .header .detection-name{
+.collapsable-data .header .detection-name{
     font-size: 25px;
     display: block;
 }
 
-.timing-detection .header .total-time{
+.collapsable-data .header .data-short{
     font-size: 20px;
     font-weight: bold;
     display: block;
 }
 
-.timing-detection .header .total-time.invalid{
+.collapsable-data .header .data-short.invalid{
     color: var(--critical-data-color);
 }
 
-.timing-detection .sectors .sector.first{
+.collapsable-data .sectors .sector.first{
     color: var(--timing-start-color)
 }
 
-.timing-detection .sectors .sector.intermediate{
+.collapsable-data .sectors .sector.intermediate{
     color: var(--timing-sector-color)
 }
 
-.timing-detection .sectors .sector.last{
+.collapsable-data .sectors .sector.last{
     color: var(--timing-stop-color)
 }
 
-.timing-detection .sectors ul{
+.collapsable-data .sectors ul{
     list-style: square;
     list-style-position: inside;
     margin: 0;

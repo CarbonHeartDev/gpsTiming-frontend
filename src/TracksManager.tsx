@@ -12,21 +12,16 @@ interface FileManagerProps {
 
 export const TracksManager = (prop: FileManagerProps) => {
     return (
-        <div className="setting">
-            <div className="setting-header">
-                <span>RILEVAZIONI CRONOMETRICHE</span>
+        <>
+            <div>
+                {
+                    prop.tracksList.map((e, index) => <TimingDetection key={index} route={e} checkpoints={prop.checkpoints} removalCallback={() => prop.removeFileCallback(index)} />)
+                }
             </div>
-            <div className="setting-body">
-                <div>
-                    {
-                        prop.tracksList.map((e, index) => <TimingDetection key={index} route={e} checkpoints={prop.checkpoints} removalCallback={() => prop.removeFileCallback(index)} />)
-                    }
-                </div>
-                <div>
-                    <input type="file" id="fileInput" onChange={e => prop.uploadFileCallback(e.target.files)}></input>
-                </div>
+            <div>
+                <input type="file" id="fileInput" onChange={e => prop.uploadFileCallback(e.target.files)}></input>
             </div>
-        </div>
+        </>
     )
 }
 

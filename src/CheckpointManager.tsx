@@ -1,7 +1,6 @@
 import React from 'react'
 import { RemoveButton } from './RemoveButton'
 import { Segment } from './PathRoutePointUtils'
-import { SidebarSection } from './SidebarSection'
 
 export interface CheckpointManagerProps {
     checkpointList: Segment[];

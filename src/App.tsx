@@ -11,7 +11,7 @@ const App: React.FC = () => {
   const [tracks, setTracks] = React.useState<Route[]>([]);
   const [checkpoints, setCheckpoints] = React.useState<Segment[]>([]);
 
-  const uploadFileCallback = (files: (FileList|null)) => {
+  const uploadFileCallback = (files: (FileList | null)) => {
     if (files?.item(0)?.type === 'application/gpx+xml') {
 
       const fileReader = new FileReader();
@@ -41,23 +41,25 @@ const App: React.FC = () => {
 
   return (
     <>
-    <h1>Cronometroty</h1>
-    <div className="app-main-view">
-      <div className="app-sidebar">
-      <div>
-        <TracksManager tracksList={tracks} 
-        uploadFileCallback={uploadFileCallback}
-        removeFileCallback={(id) => setTracks(tracks => [...tracks.slice(0, id),...tracks.slice(id+1)])}
-        checkpoints={checkpoints}
-        />
-        <SidebarSection title="TRACK CHECKPOINTS">
-        <CheckpointManager checkpointList={checkpoints} removeCheckpointCallback={(id) => setCheckpoints(checkpoints => [...checkpoints.slice(0, id),...checkpoints.slice(id+1)])} />
-        </SidebarSection>
-      </div>
-      </div>
-      <div className="app-map-area">
-        <TracksMap tracksToRender={tracks} checkpointsToRender={checkpoints} onNewCheckpoint={(checkpoint: Segment) => setCheckpoints(checkpoints => [...checkpoints, checkpoint])}></TracksMap>
-      </div>
+      <h1>Cronometroty</h1>
+      <div className="app-main-view">
+        <div className="app-sidebar">
+          <div>
+            <SidebarSection title="TRACKS">
+              <TracksManager tracksList={tracks}
+                uploadFileCallback={uploadFileCallback}
+                removeFileCallback={(id) => setTracks(tracks => [...tracks.slice(0, id), ...tracks.slice(id + 1)])}
+                checkpoints={checkpoints}
+              />
+            </SidebarSection>
+            <SidebarSection title="CHECKPOINTS MANAGEMENT">
+              <CheckpointManager checkpointList={checkpoints} removeCheckpointCallback={(id) => setCheckpoints(checkpoints => [...checkpoints.slice(0, id), ...checkpoints.slice(id + 1)])} />
+            </SidebarSection>
+          </div>
+        </div>
+        <div className="app-map-area">
+          <TracksMap tracksToRender={tracks} checkpointsToRender={checkpoints} onNewCheckpoint={(checkpoint: Segment) => setCheckpoints(checkpoints => [...checkpoints, checkpoint])}></TracksMap>
+        </div>
       </div>
       <div>
         v0.6.2 (Uncle Frankie)
