@@ -60,7 +60,7 @@ const App: React.FC = () => {
     <>
       <div className="app-topbar">
         <h1>Cronometroty</h1>
-        <span>Pre-release (Version 0.7.2)</span>
+        <span>Pre-release (Version 0.7.3)</span>
       </div>
       <div className="app-main-view">
         <div className="app-sidebar">
