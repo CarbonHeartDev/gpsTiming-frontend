@@ -1,6 +1,6 @@
 import React from 'react';
 import { TracksManager } from './TracksManager';
-import { parse } from 'fast-xml-parser';
+import { parse, validate } from 'fast-xml-parser';
 import { TracksMap } from './TracksMap';
 import { CheckpointManager } from './CheckpointManager';
 import { Segment, Route, Coordinate } from './PathRoutePointUtils';
@@ -18,25 +18,36 @@ const App: React.FC = () => {
   const [mapState, setMapState] = React.useState<MapState>({ state: 'IDLE' })
 
   const uploadFileCallback = (files: (FileList | null)) => {
-    if (files?.item(0)?.type === 'application/gpx+xml') {
+    if (files?.item(0)) {
 
       const fileReader = new FileReader();
       fileReader.onload = (e) => {
-        const parsedGPX = parse(e.target?.result as string, { ignoreAttributes: false });
+        if (validate(e.target?.result as string) === true) {
+          const parsedGPX = parse(e.target?.result as string, { ignoreAttributes: false });
+          console.log(parsedGPX)
+          if (parsedGPX?.gpx?.trk) {
+            const path = parsedGPX.gpx.trk.trkseg.trkpt.map((e: any) => {
+              return {
+                position: {
+                  latitude: Number(e['@_lat']),
+                  longitude: Number(e['@_lon'])
+                },
+                altitude: Number(e['ele']),
+                time: new Date(e['time'])
+              }
+            });
 
-        const path = parsedGPX.gpx.trk.trkseg.trkpt.map((e: any) => {
-          return {
-            position: {
-              latitude: Number(e['@_lat']),
-              longitude: Number(e['@_lon'])
-            },
-            altitude: Number(e['ele']),
-            time: new Date(e['time'])
+            setTracks(tracks => [...tracks, { name: (files.item(0)?.name as string), path }]);
+          } else {
+            if (parsedGPX.gpx) {
+              alert("The provided GPX doesn't have any track (trk) tag")
+            } else {
+              alert("Invalid XML schema, are you using a valid GPX or another XML format?")
+            }
           }
-        });
-
-        setTracks(tracks => [...tracks, { name: (files.item(0)?.name as string), path }]);
-
+        } else {
+          alert("Invalid file, please check the format and the integrity of the file");
+        }
       }
 
       const file: File = (files.item(0) as File);
@@ -47,9 +58,9 @@ const App: React.FC = () => {
 
   return (
     <>
-    <div className="app-topbar">
-      <h1>Cronometroty</h1>
-      <span>Pre-release (Version 0.7.2)</span>
+      <div className="app-topbar">
+        <h1>Cronometroty</h1>
+        <span>Pre-release (Version 0.7.2)</span>
       </div>
       <div className="app-main-view">
         <div className="app-sidebar">
