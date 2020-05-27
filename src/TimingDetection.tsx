@@ -1,9 +1,9 @@
 import React from 'react'
-import { calculateIntermediateTimes, Route, Segment } from './PathRoutePointUtils';
+import { calculateIntermediateTimes, Track, Segment } from './PathRoutePointUtils';
 import { CollapsableData } from './CollapsableData';
 
 export interface ITimingDetectionProps {
-    route: Route;
+    route: Track;
     checkpoints: Segment[];
     removalCallback: () => void;
 }

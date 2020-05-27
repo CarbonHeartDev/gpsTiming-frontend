@@ -3,8 +3,9 @@ import { TracksManager } from './TracksManager';
 import { parse, validate } from 'fast-xml-parser';
 import { TracksMap } from './TracksMap';
 import { CheckpointManager } from './CheckpointManager';
-import { Segment, Route, Coordinate } from './PathRoutePointUtils';
+import { Segment, Track, Coordinate } from './PathRoutePointUtils';
 import { SidebarSection } from './SidebarSection';
+import { LoadSaveRoutes } from './LoadSaveRoutes';
 
 export interface MapState {
   state: 'IDLE' | 'DRAWING';
@@ -13,7 +14,7 @@ export interface MapState {
 
 const App: React.FC = () => {
 
-  const [tracks, setTracks] = React.useState<Route[]>([]);
+  const [tracks, setTracks] = React.useState<Track[]>([]);
   const [checkpoints, setCheckpoints] = React.useState<Segment[]>([]);
   const [mapState, setMapState] = React.useState<MapState>({ state: 'IDLE' })
 
@@ -55,7 +56,7 @@ const App: React.FC = () => {
       fileReader.readAsText(file);
     }
   }
-
+  
   return (
     <>
       <div className="app-topbar">
@@ -74,6 +75,9 @@ const App: React.FC = () => {
             </SidebarSection>
             <SidebarSection title="CHECKPOINTS MANAGEMENT">
               <CheckpointManager triggerDrawing={() => setMapState({ state: 'DRAWING' })} checkpointList={checkpoints} removeCheckpointCallback={(id) => setCheckpoints(checkpoints => [...checkpoints.slice(0, id), ...checkpoints.slice(id + 1)])} />
+            </SidebarSection>
+            <SidebarSection title="ROUTES">
+              <LoadSaveRoutes currentRouteCheckpoints={checkpoints} setCurrentRouteCheckpoints={setCheckpoints}></LoadSaveRoutes>
             </SidebarSection>
           </div>
         </div>

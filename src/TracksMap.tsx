@@ -1,11 +1,11 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { Map, TileLayer, Polyline, FeatureGroup, Marker } from 'react-leaflet'
-import { calculateBoundsFromRoutes, Segment, Route, Coordinate } from './PathRoutePointUtils'
+import { calculateBoundsFromRoutes, Segment, Track, Coordinate } from './PathRoutePointUtils'
 import { LatLngBounds } from 'leaflet'
 import { MapState } from './App'
 
 interface TracksMapProps {
-    tracksToRender: Route[];
+    tracksToRender: Track[];
     checkpointsToRender: Segment[];
     onNewCheckpoint: (checkpoint: Segment) => void;
     mapState: MapState;

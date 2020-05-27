@@ -105,7 +105,7 @@ export interface Segment {
     p2: Coordinate;
 }
 
-export interface Route {
+export interface Track {
     name: string;
     path: Point[];
 }
@@ -119,4 +119,9 @@ export interface Point {
     position: Coordinate;
     altitude?: number;
     time: Date;
+}
+
+export interface Route {
+    name: string;
+    checkpoints: Segment[];
 }

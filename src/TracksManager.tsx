@@ -1,10 +1,10 @@
 import React from 'react';
-import { Route, Segment } from './PathRoutePointUtils';
+import { Track, Segment } from './PathRoutePointUtils';
 import { TimingDetection } from './TimingDetection';
 
 
 interface FileManagerProps {
-    tracksList: Route[];
+    tracksList: Track[];
     uploadFileCallback: (data: (FileList | null)) => void;
     removeFileCallback: (id: number) => void;
     checkpoints: Segment[];
