@@ -60,8 +60,7 @@ h1 {
 }
 
 .collapsable-data .header .detection-name {
-  font-size: 25px;
-  display: block;
+  font-size: 20px;
 }
 
 .collapsable-data .header .data-short {
@@ -92,8 +91,19 @@ h1 {
   margin: 0;
 }
 
-.removal-button {
-  color: blue;
+.button {
+  color: black;
   cursor: pointer;
   font-size: 15px;
+}
+
+.button.disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.main-line {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }

@@ -1,0 +1,5 @@
+
+.icon-trash-empty:before { content: '\e800'; } /* '' */
+.icon-floppy:before { content: '\e801'; } /* '' */
+.icon-ok:before { content: '\e802'; } /* '' */
+.icon-folder-open-empty:before { content: '\f115'; } /* '' */

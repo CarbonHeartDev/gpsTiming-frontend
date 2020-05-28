@@ -2,6 +2,6 @@ import React from 'react'
 
 export const RemoveButton = (props: {RemoveButtonCallback: () => void}) => {
     return (
-        <span className="removal-button" onClick={props.RemoveButtonCallback}>X</span>
+        <span className="button icon-trash-empty" onClick={props.RemoveButtonCallback}></span>
     )
 }

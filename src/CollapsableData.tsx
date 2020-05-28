@@ -3,7 +3,7 @@ import { RemoveButton } from './RemoveButton';
 
 export interface CollapsableDataProps {
     name: string;
-    dataShort?: string| null;
+    dataShort?: string | null;
     dataError?: boolean;
     children: ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
     removalCallback: () => void;
@@ -17,12 +17,14 @@ export const CollapsableData = (prop: CollapsableDataProps) => {
     return (
         <div className="collapsable-data" onClick={() => setOpen(value => !value)} style={{ cursor: prop.children ? 'pointer' : 'auto' }}>
             <div className="header">
-                <RemoveButton RemoveButtonCallback={prop.removalCallback} />
-                <span className="detection-name">{prop.name}</span>
+                <div className="main-line">
+                    <span className="detection-name">{prop.name}</span>
+                        <RemoveButton RemoveButtonCallback={prop.removalCallback} />
+                </div>
                 {
                     (prop.dataShort) ?
-                    <span className={'data-short' + ((prop.dataError) ? ' invalid' : null)}>{prop.dataShort}</span>
-                    : null
+                        <span className={'data-short' + ((prop.dataError) ? ' invalid' : null)}>{prop.dataShort}</span>
+                        : null
                 }
             </div>
             {

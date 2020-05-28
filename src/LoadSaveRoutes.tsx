@@ -58,17 +58,17 @@ export const LoadSaveRoutes = (prop: LoadSaveRoutesProps) => {
     return (
         <>
             <div>
-                <button disabled={generalComponentState === 'LOAD'} onClick={() => setGeneralComponentState(() => 'LOAD')}>LOAD</button>
-                <button disabled={generalComponentState === 'SAVE'} onClick={() => setGeneralComponentState(() => 'SAVE')}>SAVE</button>
+                <span className={`button icon-folder-open-empty ${generalComponentState === 'LOAD' ? "disabled" : ""}`} onClick={() => generalComponentState === 'LOAD' ? null : setGeneralComponentState(() => 'LOAD')}></span>
+                <span className={`button icon-floppy ${generalComponentState === 'SAVE' ? "disabled" : ""}`} onClick={() => generalComponentState === 'SAVE' ? null : setGeneralComponentState(() => 'SAVE')}></span>
             </div>
             {generalComponentState !== 'CLOSED' ? <div>
-                <div>
+                <div style={{display: "flex"}}>
                     <input type="text" onChange={(event) => {
                         event.persist();
                         setTextBoxState((_ => event.target.value));
                         }}></input>
+                <span className={`button icon-ok`} onClick={confirmationClickHandler}></span>
                 </div>
-                <button onClick={confirmationClickHandler}>CONFIRM</button>
                 <div>
                     <span>{messageBoxState}</span>
                 </div>
