@@ -107,3 +107,8 @@ h1 {
 	justify-content: space-between;
 	align-items: center;
 }
+
+.checkpoint-list-options {
+	display: flex;
+	justify-content: end;
+}

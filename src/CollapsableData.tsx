@@ -1,5 +1,5 @@
 import React, { useState, ReactChild, ReactFragment, ReactPortal } from 'react'
-import { RemoveButton } from './RemoveButton';
+import { IconButton } from './IconButton';
 
 export interface CollapsableDataProps {
     name: string;
@@ -19,7 +19,7 @@ export const CollapsableData = (prop: CollapsableDataProps) => {
             <div className="header">
                 <div className="main-line">
                     <span className="detection-name">{prop.name}</span>
-                        <RemoveButton RemoveButtonCallback={prop.removalCallback} />
+                        <IconButton iconName="TRASH" buttonClickCallback={prop.removalCallback} />
                 </div>
                 {
                     (prop.dataShort) ?

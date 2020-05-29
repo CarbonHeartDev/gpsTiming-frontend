@@ -1,5 +1,6 @@
 import React from 'react';
 import { Segment, Route } from './PathRoutePointUtils';
+import { IconButton } from './IconButton';
 
 
 interface LoadSaveRoutesProps {
@@ -58,8 +59,8 @@ export const LoadSaveRoutes = (prop: LoadSaveRoutesProps) => {
     return (
         <>
             <div>
-                <span className={`button icon-folder-open-empty ${generalComponentState === 'LOAD' ? "disabled" : ""}`} onClick={() => generalComponentState === 'LOAD' ? null : setGeneralComponentState(() => 'LOAD')}></span>
-                <span className={`button icon-floppy ${generalComponentState === 'SAVE' ? "disabled" : ""}`} onClick={() => generalComponentState === 'SAVE' ? null : setGeneralComponentState(() => 'SAVE')}></span>
+                <IconButton iconName='FOLDER' disabled={generalComponentState === 'LOAD'} buttonClickCallback={() => setGeneralComponentState(() => 'LOAD')}></IconButton>
+                <IconButton iconName='FLOPPY' disabled={generalComponentState === 'SAVE'} buttonClickCallback={() => setGeneralComponentState(() => 'SAVE')}></IconButton>
             </div>
             {generalComponentState !== 'CLOSED' ? <div>
                 <div style={{display: "flex"}}>
@@ -67,7 +68,7 @@ export const LoadSaveRoutes = (prop: LoadSaveRoutesProps) => {
                         event.persist();
                         setTextBoxState((_ => event.target.value));
                         }}></input>
-                <span className={`button icon-ok`} onClick={confirmationClickHandler}></span>
+                <IconButton iconName='OK' buttonClickCallback={confirmationClickHandler}></IconButton>
                 </div>
                 <div>
                     <span>{messageBoxState}</span>

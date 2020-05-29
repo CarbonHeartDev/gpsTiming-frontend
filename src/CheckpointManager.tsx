@@ -1,6 +1,7 @@
 import React from 'react'
 import { Segment } from './PathRoutePointUtils'
 import { CollapsableData } from './CollapsableData'
+import { IconButton } from './IconButton'
 
 export interface CheckpointManagerProps {
     checkpointList: Segment[];
@@ -15,7 +16,7 @@ export const CheckpointManager = (prop: CheckpointManagerProps) => {
                 prop.checkpointList.map((checkpoint, index) =>
                     (
                         <div key={index}>
-                            <CollapsableData name={`Sector ${index + 1}`} removalCallback={() => prop.removeCheckpointCallback(index)}>
+                            <CollapsableData name={`Sector ${ index + 1 }`} removalCallback={() => prop.removeCheckpointCallback(index)}>
                                 <div><b>Lat:</b> {checkpoint.p1.latitude} <b>Lon:</b> {checkpoint.p1.longitude}</div>
                                 <div><b>Lat:</b> {checkpoint.p2.latitude} <b>Lon:</b> {checkpoint.p2.longitude}</div>
                             </CollapsableData>
@@ -23,7 +24,9 @@ export const CheckpointManager = (prop: CheckpointManagerProps) => {
                     )
                 )
             }
-            <button onClick={prop.triggerDrawing}>Add track waypoint</button>
+            <div className="checkpoint-list-options">
+                <IconButton iconName='LIST_ADD' buttonClickCallback={prop.triggerDrawing} />
+            </div>
         </>
     )
 }
